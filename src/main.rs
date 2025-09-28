@@ -1,5 +1,4 @@
 use std::io::Write;
-use std::path::PathBuf;
 
 fn main() {
     let mut cwd = std::env::current_dir().unwrap();
@@ -12,10 +11,16 @@ fn main() {
         std::io::stdout().flush().unwrap();
 
         std::io::stdin().read_line(&mut input).expect("err");
-        
-        let parts = input.trim().split(" ").map(|v| v.to_string()).collect::<Vec<String>>();
 
-        if parts.len() == 0 { continue; }
+        let parts = input
+            .trim()
+            .split(" ")
+            .map(|v| v.to_string())
+            .collect::<Vec<String>>();
+
+        if parts.len() == 0 {
+            continue;
+        }
 
         match parts[0].as_str() {
             "glungus" => {
@@ -47,12 +52,12 @@ fn main() {
                 std::env::set_current_dir(&new_path).unwrap();
 
                 cwd = new_path;
-            },
+            }
 
             "clear" => {
-                print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
-                std::io::stdout().flush();
-            },
+                print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
+                std::io::stdout().flush().unwrap();
+            }
 
             _ => {
                 println!("rsh: command not found: {input}");
